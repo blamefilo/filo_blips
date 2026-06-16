@@ -49,6 +49,7 @@ lib.callback.register('filo_blips:server:editPersistentBlip', function(source, d
     if not Framework.GetIsFrameworkAdmin(src) then return end
     if not blipKVP[data.id] then return end
     blipKVP[data.id] = {
+        id = data.id,
         label = data.newLabel,
         coords = data.coords,
         color = data.color,

@@ -10,7 +10,7 @@ local blipMeta = {
         local data = rawget(self, "_data")
         
         if key == "sprite" then
-            SetBlipSprite(self.blip, value)
+            SetBlipSprite(self.blip, value + 0.0)
         elseif key == "scale" then
             SetBlipScale(self.blip, value)
         elseif key == "color" or key == "colour" then
@@ -40,7 +40,6 @@ function Blip.new(data)
     self.resource = GetInvokingResource()
     self.blip = AddBlipForCoord(self.coords.x, self.coords.y, self.coords.z)
 
-
     local key = data.name or #Blips + 1
     if self.category then
         local category = Category.get(self.category)
@@ -52,7 +51,7 @@ function Blip.new(data)
     function self:setValues()
         SetBlipCoords(self.blip, self.coords.x, self.coords.y, self.coords.z)
         SetBlipSprite(self.blip, self.sprite)
-        SetBlipScale(self.blip, self.scale)
+        SetBlipScale(self.blip, self.scale + 0.0)
         SetBlipColour(self.blip, self.color)
         SetBlipDisplay(self.blip, self.hidden and 0 or self.display)
         SetBlipAsShortRange(self.blip, self.shortRange)
