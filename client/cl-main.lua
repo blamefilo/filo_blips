@@ -28,6 +28,7 @@ function Blip.new(data)
     local self = setmetatable({}, blipMeta) 
     rawset(self, "_data", {})
 
+    self.resource = GetInvokingResource()
     self.name = data.name
     self.coords = data.coords
     self.label = data.label
@@ -115,6 +116,14 @@ function DeleteBlip(name)
     assert(GetBlip(name), 'blip doesn\'t exist.')
     GetBlip(name):remove()
 end
+
+AddEventHandler('onResourceStop', function(resourceName)
+    for _, v in pairs(Blips) do
+        if v.resource == resourceName then
+            v:remove()
+        end
+    end
+end)
 
 exports('getBlip', GetBlip)
 exports('hideBlipCategory', HideBlipCategory)

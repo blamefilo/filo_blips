@@ -20,6 +20,7 @@ function Category.new(data)
     assert(newId, 'cannot register any more categories')
 
     local self = setmetatable({}, Category)
+    self.resource = GetInvokingResource()
     self.name = data.name
     self.label = data.label
     self.id = newId
@@ -58,6 +59,14 @@ function DeleteCategory(name)
     
     GetCategory(name):remove()
 end
+
+AddEventHandler('onResourceStop', function(resourceName)
+    for k, v in pairs(Categories) do
+        if v.resource == resourceName then
+            v:remove()
+        end
+    end
+end)
 
 -- CreateCategory({
 --     name = 'testcategory',
